@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="cs-cz" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/master.min.css">
+    <title>Přidání nového inzerátu</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <input id="check01" type="checkbox" name="menu">
+        <label for="check01">
+          <img id="menu-icon" src="menu.svg" alt="menu">
+        </label>
+        <ul>
+          <li><a href="index.html">Úvod</a></li>
+          <li><a href="myads-login.html">Moje inzeráty</a></li>
+          <li><a href="new.html">Přidat</a></li>
+          <li><a href="ads.php">Prohlížet</a></li>
+          <li><a href="about.html">O projektu</a></li>
+        </ul>
+      </nav>
+      <a href="index.html"><h1>Burza učebnic</h1></a>
+      <p>Online burza učebnic</p>
+      <div id="line"></div>
+    </header>
+    <h2>Přidání nového inzerátu</h2>
+    <form class="" action="sendform.php" method="post" enctype="multipart/form-data">
+      <div class="slide">
+        <p>Jak se ta učebnice jmenuje?</p>
+        <p>(třeba "Základy Programování od Jana Nováka, 2. vydání")</p>
+        Název: <input type="text" name="bookname" value="">
+      </div>
+      <div class="slide">
+        <p>Jak vypadá?</p>
+        <p>(jedna fotka stačí)</p>
+        Select image to upload:
+        <input type="file" name="fileToUpload" id="fileToUpload">
+      </div>
+      <div class="slide">
+        <p>Kolik té učebnici je?</p>
+        <p>(Pokud je učebnice nová, stačí napsat "0")</p>
+        Stáří: <input type="number" name="bookage" min="0" max="20000"> rok(y)/let (odhad)
+      </div>
+      <div class="slide">
+        <p>V jakém je stavu?</p>
+        <p>(například "Pár politých stránek, jinak nic")</p>
+        Stav: <input type="text" name="condition" value="">
+      </div>
+      <div class="slide">
+        <p>Za kolik?</p>
+        Cena: <input type="number" name="price" min="0"> Kč
+      </div>
+      <div class="slide">
+        <p>Chceš k tomu něco dodat?</p>
+        <p>(nech prázdné, pokud ne)</p>
+        Poznámka:<br><textarea name="note" value=""></textarea>
+      </div>
+      <div class="slide">
+        <p>Teď něco o tobě:</p>
+        Jméno:<br><input type="text" name="username" value=""><br>
+        E-Mail:<br><input type="email" name="mail" value=""><br>
+        Další kontakt(y):<br><input type="text" name="othercontact" value=""><br>
+        Heslo (pro pozdější editaci inzerátu):<br><input type="password" name="password" value=""><br>
+        <input type="checkbox" name="" value="">Souhlasím se <a href="">zpracováním osobních údajů</a>.<br>
+        <input type="checkbox" name="" value="">Souhlasím se <a href="">smluvními podmínkami</a>.<br>
+        <input type="submit" name="" value="Odeslat">
+      </div>
+    </form>
+    <footer>
+      <p>© Burza Učebnic 2019</p>
+    </footer>
+  </body>
+</html>

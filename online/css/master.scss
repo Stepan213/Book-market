@@ -1,0 +1,264 @@
+$blue: #205072;
+$light-grey: #f3f3f3;
+$grey: #696969;
+$ligt-yellow: #ffe691;
+$dark-yellow: #ffd138;
+
+
+html, body {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  color: $blue;
+  font-family: 'Quicksand', sans-serif;
+}
+
+h2, body>p {
+  padding: 0 10px;
+}
+
+header {
+  color: white;
+  background-color: $blue;
+  width: 100%;
+  padding: 10px;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  p {
+    font-weight: bold;
+  }
+  h1 {
+    margin-top: 6px;
+    text-decoration: none;
+  }
+  nav {
+    text-align: right;
+    input {
+      display: none;
+    }
+    input:checked ~ ul {
+      transition: height 0.5s ease-in-out;
+      height: calc(100vh - 68px);
+    }
+    label {
+      width: 50px;
+      display: inline-block;
+      height: 30px;
+      position: absolute;
+      right: 0;
+      img {
+        width: 30px;
+        margin-top: 11.5px;
+        margin-right: 10px;
+      }
+    }
+    ul {
+      width: 100vw;
+      height: 0;
+      margin: 0;
+      margin-top: 60px;
+      overflow: hidden;
+      transition: height 0.5s ease-in-out;
+      list-style-type: none;
+      position: absolute;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 0;
+      z-index: 999;
+      li {
+        a {
+          text-decoration: none;
+          padding: 20px;
+          text-align: left;
+          display: block;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  #line {
+    width: calc(100% - 20px);
+    background-color: white;
+    height: 1px;
+  }
+}
+
+#main-page {
+    background-color: $blue;
+    color: white;
+    padding: 10px;
+    height: calc(100vh - 145px);
+    h2 {
+      padding: 0;
+    }
+    #main-page-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 40px;
+      a {
+        border: 1px solid white;
+        padding: 10px 20px;
+        width: 30vw;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        display: block;
+        color: white;
+      }
+    }
+}
+
+form {
+  div {
+    background-color: $light-grey;
+    padding: 30px 10px;
+    margin: 20px 10px;
+    border-radius: 5px;
+    p:first-child {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 0;
+    }
+    input, textarea {
+      border: none;
+      border-radius: 5px;
+      padding: 8px;
+      height: 1.5em;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1em;
+      margin: 5px 0;
+      color: $grey;
+      min-width: 12em;
+      font-size: 1em;
+      font-family: inherit;
+    }
+    input[type="number"] {
+      min-width: 0;
+      width: 3em;
+    }
+    input[type="checkbox"] {
+      min-width: 0;
+      width: 1.5em;
+      height: 1.5em;
+      border: none;
+      background-color: white;
+      -webkit-appearance: none;
+      margin-top: 10px;
+    }
+    input[type="submit"] {
+      height: 2.3em;
+      color: white;
+      background-color: $blue;
+      -webkit-appearance: none;
+    }
+    textarea {
+      resize: none;
+      height: 10em;
+      width: calc(100% - 15px);
+    }
+  }
+  div:last-child {
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: calc(100% - 15px);
+    }
+  }
+}
+
+.list-block {
+  background-color: $light-grey;
+  padding: 30px 10px;
+  margin: 20px 10px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 11px -4px rgba(0,0,0,0.31);
+  display: block;
+  text-decoration: none;
+  color: $blue;
+  #img-wrapper {
+    max-height: 70vw;
+    height: auto;
+    overflow: hidden;
+    border-radius: 5px;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+#ad {
+  margin: 20px 0;
+  #img-wrapper {
+    max-height: 70vw;
+    height: auto;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  p, h2 {
+    padding: 0 10px;
+  }
+}
+
+#about {
+  padding: 10px;
+  h2 {
+    padding: 0;
+  }
+}
+
+footer {
+  background-color: $blue;
+  color: white;
+  padding: 10px;
+}
+
+.error-message {
+  background-color: $ligt-yellow;
+  color: black;
+  border: 1px solid $dark-yellow;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 0 10px;
+  a {
+    color: black;
+  }
+}
+
+@media(min-width:800px) {
+  header {
+    nav {
+      label {
+        display: none;
+      }
+      ul {
+        height: auto;
+        width: auto;
+        background: none;
+        margin-top: 0;
+        li {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  #main-page {
+    #main-page-buttons {
+      justify-content: space-around;
+    }
+  }
+
+  form {
+    width: 100%;
+    div {
+      width: 700px;
+      margin-left: calc((100% - 700px) / 2);
+    }
+  }
+}
