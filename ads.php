@@ -73,7 +73,7 @@
       if(count($_POST)) {
         $subject = $_POST['subject'];
         $school_year = $_POST['schoolyear'];
-        $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price FROM main WHERE Subject=? AND SchoolYear=?");
+        $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price FROM main WHERE Subject=? AND SchoolYear=? ORDER BY IsGroup DESC");
 
         $sql->bind_param("si", $subject, $school_year);
         $sql->execute();
@@ -93,7 +93,7 @@
         }
       }
       else {
-        $sql = "SELECT URL, BookName, PhotoURL, Price FROM main";
+        $sql = "SELECT URL, BookName, PhotoURL, Price FROM main ORDER BY IsGroup DESC";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
