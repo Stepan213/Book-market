@@ -28,6 +28,7 @@
       <div id="line"></div>
       </header>
       <h2>Moje inzeráty</h2>
+      <div id="list-block-wrapper">
       <?php
         $user_mail = $_POST['usermail'];
         $user_password = $_POST['password'];
@@ -56,7 +57,7 @@
         if (mysqli_num_rows($result)!=0) {
           while($row = $result->fetch_assoc()) {
             if(password_verify($user_password, $row["Password"])) {
-              echo "<a href='ad.php?URL=". $row["URL"] ."' class='list-block'>
+              echo "<a href='myad.php?URL=". $row["URL"] ."' class='list-block'>
                       <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                       <strong>" . $row["BookName"]. "</strong>
                       <p>" . $row["Price"]. " Kč</p>
@@ -71,6 +72,7 @@
         }
         $conn->close();
       ?>
+    </div>
       <footer>
         <p>© Burza Učebnic 2019</p>
       </footer>
