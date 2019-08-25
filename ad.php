@@ -40,11 +40,8 @@
         die("Connection failed: " . $conn->connect_error);
       }
 
-      $sql = "SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact FROM main WHERE URL='" . $URL ."'";
-      $result = $conn->query($sql);
-
       // Prepare statement, avoid injection attack
-      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact FROM main WHERE URL=?");
+      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact, IsGroup FROM main WHERE URL=?");
 
       // Bind values
       $sql->bind_param("s", $URL);
@@ -54,15 +51,22 @@
         // TODO: That if not working
       }
 
+      $result = $sql->get_result();
+
       if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
+          if($row["IsGroup"]) {
+            $price = "";
+          } else {
+            $price = "<p>Cena: " . $row["Price"] . " Kč</p>";
+          }
           // Generate HTML
           echo "<div id='ad'>
                   <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                   <div id='text'>
                   <h2>" . $row["BookName"]. "</h2>
-                  <p>Cena: " . $row["Price"] . " Kč</p>
+                  " . $price . "
                   <p>" . $row["Note"] . "</p>
                   <p>Od uživatele: " . $row["UserName"] . "</p>
                   <p>Kontakt: <a href='mailto:" . $row["Mail"] . "'>" . $row["Mail"] . "</a></p>

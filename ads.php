@@ -33,16 +33,16 @@
           <p>Filtr podle předmětu:</p>
           <img src="arrow.svg" alt="">
           <select name="subject">
-            <option value="multiple">Víc předmětů</option>
             <?php
               if(!count($_POST)) {
-                $subject = "other";
+                $subject = "multiple";
                 $school_year = "0";
               } else {
                 $subject = $_POST['subject'];
                 $school_year = $_POST['schoolyear'];
               }
             ?>
+            <option <?php if ($subject == "multiple" ) echo 'selected'; ?> value="multiple">Nezáleží</option>
             <option <?php if ($subject == "aj" ) echo 'selected'; ?> value="aj">Aj</option>
             <option <?php if ($subject == "cj" ) echo 'selected'; ?> value="cj">Čj</option>
             <option <?php if ($subject == "nj" ) echo 'selected'; ?> value="nj">Nj</option>
@@ -62,7 +62,7 @@
             <option <?php if ($school_year == "2" ) echo 'selected'; ?> value="2">Druhák</option>
             <option <?php if ($school_year == "3" ) echo 'selected'; ?> value="3">Třeťák</option>
             <option <?php if ($school_year == "4" ) echo 'selected'; ?> value="4">Čtvrťák</option>
-            <option <?php if ($school_year == "0" ) echo 'selected'; ?> value="0">Nejde určit</option>
+            <option <?php if ($school_year == "0" ) echo 'selected'; ?> value="0">Víceleté</option>
           </select>
         <input type="submit" name="" value="Použít filtry">
       </form>
@@ -82,9 +82,24 @@
       if(count($_POST)) {
         $subject = $_POST['subject'];
         $school_year = $_POST['schoolyear'];
-        $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price FROM main WHERE Subject=? AND SchoolYear=? ORDER BY IsGroup DESC");
 
-        $sql->bind_param("si", $subject, $school_year);
+        if($subject == "multiple") {
+          if($school_year == "0") {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main ORDER BY IsGroup DESC");
+          } else {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE SchoolYear=? ORDER BY IsGroup DESC");
+            $sql->bind_param("i", $school_year);
+          }
+        } else {
+          if($school_year == "0") {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE Subject=? ORDER BY IsGroup DESC");
+            $sql->bind_param("s", $subject);
+          } else {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE Subject=? AND SchoolYear=? ORDER BY IsGroup DESC");
+            $sql->bind_param("si", $subject, $school_year);
+          }
+        }
+
         $sql->execute();
 
         $result = $sql->get_result();
@@ -94,7 +109,6 @@
             echo "<a href='ad.php?URL=". $row["URL"] ."' class='list-block'>
                     <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                     <strong>" . $row["BookName"]. "</strong>
-                    <p>" . $row["Price"]. " Kč</p>
                   </a>";
           }
         } else {
@@ -102,7 +116,7 @@
         }
       }
       else {
-        $sql = "SELECT URL, BookName, PhotoURL, Price FROM main ORDER BY IsGroup DESC";
+        $sql = "SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main ORDER BY IsGroup DESC";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -110,7 +124,6 @@
             echo "<a href='ad.php?URL=". $row["URL"] ."' class='list-block'>
                     <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                     <strong>" . $row["BookName"]. "</strong>
-                    <p>" . $row["Price"]. " Kč</p>
                   </a>";
           }
         } else {
