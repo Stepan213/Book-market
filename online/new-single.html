@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="cs-cz" dir="ltr">
+<html lang="cs/cz" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/master.min.css">
-    <title>Přidání nového inzerátu</title>
+    <title>Přidání jedné učebnice</title>
   </head>
   <body>
     <header>
@@ -18,7 +18,7 @@
         <ul>
           <li><a href="index.html">Úvod</a></li>
           <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new.html">Přidat</a></li>
+          <li><a href="new-choice.html">Přidat</a></li>
           <li><a href="ads.php">Prohlížet</a></li>
           <li><a href="about.html">O projektu</a></li>
         </ul>
@@ -32,27 +32,45 @@
       <div class="slide">
         <p>Jak se ta učebnice jmenuje?</p>
         <p>(třeba "Základy Programování od Jana Nováka, 2. vydání")</p>
-        Název: <input type="text" name="bookname" value="">
+        Název: <input type="text" name="bookname" value="" required>
+      </div>
+      <div class="slide">
+        <p>O jaký se jedná předmět?</p>
+        <img src="arrow.svg" alt="">
+        <select name="subject">
+          <option value="aj">Aj</option>
+          <option value="cj">Čj</option>
+          <option value="nj">Nj</option>
+          <option value="fy">Fy</option>
+          <option value="ma">Ma</option>
+          <option value="ch">Ch</option>
+          <option value="de">Dě</option>
+          <option value="ze">Ze</option>
+          <option value="zsv">ZsV</option>
+          <option value="bi">Bi</option>
+          <option value="other">Jiné</option>
+        </select>
+      </div>
+      <div class="slide">
+        <p>Pro jaký ročník je?</p>
+        <img src="arrow.svg" alt="">
+        <select name="schoolyear">
+          <option value="1">Prvák</option>
+          <option value="2">Druhák</option>
+          <option value="3">Třeťák</option>
+          <option value="4">Čtvrťák</option>
+          <option value="0">Nejde určit</option>
+        </select>
       </div>
       <div class="slide">
         <p>Jak vypadá?</p>
         <p>(jedna fotka stačí)</p>
         Select image to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload">
-      </div>
-      <div class="slide">
-        <p>Kolik té učebnici je?</p>
-        <p>(Pokud je učebnice nová, stačí napsat "0")</p>
-        Stáří: <input type="number" name="bookage" min="0" max="20000"> rok(y)/let (odhad)
-      </div>
-      <div class="slide">
-        <p>V jakém je stavu?</p>
-        <p>(například "Pár politých stránek, jinak nic")</p>
-        Stav: <input type="text" name="condition" value="">
+        <input type="file" name="fileToUpload" id="fileToUpload" required>
       </div>
       <div class="slide">
         <p>Za kolik?</p>
-        Cena: <input type="number" name="price" min="0"> Kč
+        Cena: <input type="number" name="price" min="0" required> Kč
       </div>
       <div class="slide">
         <p>Chceš k tomu něco dodat?</p>
@@ -61,12 +79,12 @@
       </div>
       <div class="slide">
         <p>Teď něco o tobě:</p>
-        Jméno:<br><input type="text" name="username" value=""><br>
-        E-Mail:<br><input type="email" name="mail" value=""><br>
+        Jméno:<br><input type="text" name="username" value="" required><br>
+        E-Mail:<br><input type="email" name="mail" value="" required><br>
         Další kontakt(y):<br><input type="text" name="othercontact" value=""><br>
-        Heslo (pro pozdější editaci inzerátu):<br><input type="password" name="password" value=""><br>
-        <input type="checkbox" name="" value="">Souhlasím se <a href="">zpracováním osobních údajů</a>.<br>
-        <input type="checkbox" name="" value="">Souhlasím se <a href="">smluvními podmínkami</a>.<br>
+        Heslo (pro pozdější editaci inzerátu):<br><input type="password" name="password" value="" required><br>
+        <!--<input type="checkbox" name="" value="">Souhlasím se <a href="">zpracováním osobních údajů</a>.<br>
+        <input type="checkbox" name="" value="">Souhlasím se <a href="">smluvními podmínkami</a>.<br>-->
         <input type="submit" name="" value="Odeslat">
       </div>
     </form>

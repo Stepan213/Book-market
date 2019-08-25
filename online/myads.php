@@ -18,7 +18,7 @@
         <ul>
           <li><a href="index.html">Úvod</a></li>
           <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new.html">Přidat</a></li>
+          <li><a href="new-choice.html">Přidat</a></li>
           <li><a href="ads.php">Prohlížet</a></li>
           <li><a href="about.html">O projektu</a></li>
         </ul>
@@ -44,7 +44,7 @@
         }
 
         // Prepare statement, avoid injection attack
-        $sql = $conn->prepare("SELECT Password, URL, BookName, PhotoURL, Price, BookCondition FROM main WHERE Mail=?");
+        $sql = $conn->prepare("SELECT Password, URL, BookName, PhotoURL, Price FROM main WHERE Mail=?");
 
         // Bind values
         $sql->bind_param("s", $user_mail);
@@ -60,7 +60,6 @@
                       <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                       <strong>" . $row["BookName"]. "</strong>
                       <p>" . $row["Price"]. " Kč</p>
-                      <p>" . $row["BookCondition"]. "</p>
                     </a>";
             }
             else {

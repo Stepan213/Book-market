@@ -18,7 +18,7 @@
         <ul>
           <li><a href="index.html">Úvod</a></li>
           <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new.html">Přidat</a></li>
+          <li><a href="new-choice.html">Přidat</a></li>
           <li><a href="ads.php">Prohlížet</a></li>
           <li><a href="about.html">O projektu</a></li>
         </ul>
@@ -40,11 +40,11 @@
         die("Connection failed: " . $conn->connect_error);
       }
 
-      $sql = "SELECT PhotoURL, BookName, BookAge, BookCondition, Price, Note, UserName, Mail, OtherContact FROM main WHERE URL='" . $URL ."'";
+      $sql = "SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact FROM main WHERE URL='" . $URL ."'";
       $result = $conn->query($sql);
 
       // Prepare statement, avoid injection attack
-      $sql = $conn->prepare("SELECT PhotoURL, BookName, BookAge, BookCondition, Price, Note, UserName, Mail, OtherContact FROM main WHERE URL=?");
+      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact FROM main WHERE URL=?");
 
       // Bind values
       $sql->bind_param("s", $URL);
@@ -57,28 +57,17 @@
       if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-          // Book Age language correction
-          $suffix = "let";
-          if($row["BookAge"] == 0) {
-            $suffix = "let - nová";
-          }
-          if($row["BookAge"] == 1) {
-            $suffix = "rok";
-          }
-          if(($row["BookAge"] > 1) && ($row["BookAge"] < 5)) {
-            $suffix = "roky";
-          }
           // Generate HTML
           echo "<div id='ad'>
                   <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
+                  <div id='text'>
                   <h2>" . $row["BookName"]. "</h2>
-                  <p>Stáří: " . $row["BookAge"] . " " . $suffix . "</p>
-                  <p>Stav: " . $row["BookCondition"] . "</p>
                   <p>Cena: " . $row["Price"] . " Kč</p>
                   <p>" . $row["Note"] . "</p>
                   <p>Od uživatele: " . $row["UserName"] . "</p>
                   <p>Kontakt: <a href='mailto:" . $row["Mail"] . "'>" . $row["Mail"] . "</a></p>
                   <p>Další kontakt: " . $row["OtherContact"] . "</p>
+                  </div>
                 </div>";
         }
       } else {

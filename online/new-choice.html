@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/master.min.css">
-    <title>Moje inzeráty - přihlášení</title>
+    <title>Přidání nového inzerátu</title>
   </head>
   <body>
     <header>
@@ -27,13 +27,13 @@
       <p>Online burza učebnic</p>
       <div id="line"></div>
     </header>
-    <h2>Přihlášení k editaci mých inzerátů</h2>
-    <p>Pro editaci nebo smazání inzerátů zadej údaje, které jsi zadal/a při přidávání inzerátu.</p>
-    <form action="myads.php" method="post">
-      <div>
-        E-Mail: <input type="email" name="usermail" value="" required><br>
-        Heslo: <input type="password" name="password" value="" required><br>
-        <input type="submit" name="" value="Přihlásit">
+    <h2>Přidání nového inzerátu</h2>
+    <form class="" action="sendform.php" method="post" enctype="multipart/form-data">
+      <div class="slide">
+        <p>Kolik toho bude?</p>
+        <p>(Učebnice můžeš přidat buď po jednom, nebo jako skupinu, třeba "Učebnice pro 1. ročník")</p>
+        <a href="new-single.html">Jedna učebnice</a>
+        <a href="new-group.html">Víc učebnic najednou</a>
       </div>
     </form>
     <footer>

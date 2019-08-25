@@ -40,7 +40,8 @@ if($image_file_type != "jpg" && $image_file_type != "png" && $image_file_type !=
 // Try upload file
 if($upload_ok) {
   if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_img_dir . $newfilename)) {
-    $error_message = "Omlouvám se, obrázek se nepodařilo nahrát. Zkuste to prosím znovu.";
+    $error_message = "Omlouvám se, obrázek se nepodařilo nahrát. Zkuste to prosím znovu." . $_FILES["fileToUpload"]["tmp_name"];
+
   }
 }
 
