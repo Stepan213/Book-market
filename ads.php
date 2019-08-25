@@ -34,26 +34,35 @@
           <img src="arrow.svg" alt="">
           <select name="subject">
             <option value="multiple">Víc předmětů</option>
-            <option value="aj">Aj</option>
-            <option value="cj">Čj</option>
-            <option value="nj">Nj</option>
-            <option value="fy">Fy</option>
-            <option value="ma">Ma</option>
-            <option value="ch">Ch</option>
-            <option value="de">Dě</option>
-            <option value="ze">Ze</option>
-            <option value="zsv">ZsV</option>
-            <option value="bi">Bi</option>
-            <option value="other">Jiné</option>
+            <?php
+              if(!count($_POST)) {
+                $subject = "other";
+                $school_year = "0";
+              } else {
+                $subject = $_POST['subject'];
+                $school_year = $_POST['schoolyear'];
+              }
+            ?>
+            <option <?php if ($subject == "aj" ) echo 'selected'; ?> value="aj">Aj</option>
+            <option <?php if ($subject == "cj" ) echo 'selected'; ?> value="cj">Čj</option>
+            <option <?php if ($subject == "nj" ) echo 'selected'; ?> value="nj">Nj</option>
+            <option <?php if ($subject == "fy" ) echo 'selected'; ?> value="fy">Fy</option>
+            <option <?php if ($subject == "ma" ) echo 'selected'; ?> value="ma">Ma</option>
+            <option <?php if ($subject == "ch" ) echo 'selected'; ?> value="ch">Ch</option>
+            <option <?php if ($subject == "de" ) echo 'selected'; ?> value="de">Dě</option>
+            <option <?php if ($subject == "ze" ) echo 'selected'; ?> value="ze">Ze</option>
+            <option <?php if ($subject == "zsv" ) echo 'selected'; ?> value="zsv">ZsV</option>
+            <option <?php if ($subject == "bi" ) echo 'selected'; ?> value="bi">Bi</option>
+            <option <?php if ($subject == "other" ) echo 'selected'; ?> value="other">Jiné</option>
           </select>
           <p>Filtr podle ročníku:</p>
           <img src="arrow.svg" alt="">
           <select name="schoolyear">
-            <option value="1">Prvák</option>
-            <option value="2">Druhák</option>
-            <option value="3">Třeťák</option>
-            <option value="4">Čtvrťák</option>
-            <option value="0">Nejde určit</option>
+            <option <?php if ($school_year == "1" ) echo 'selected'; ?> value="1">Prvák</option>
+            <option <?php if ($school_year == "2" ) echo 'selected'; ?> value="2">Druhák</option>
+            <option <?php if ($school_year == "3" ) echo 'selected'; ?> value="3">Třeťák</option>
+            <option <?php if ($school_year == "4" ) echo 'selected'; ?> value="4">Čtvrťák</option>
+            <option <?php if ($school_year == "0" ) echo 'selected'; ?> value="0">Nejde určit</option>
           </select>
         <input type="submit" name="" value="Použít filtry">
       </form>
