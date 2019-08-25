@@ -120,6 +120,7 @@ header {
 }
 
 form {
+  min-height: 75vh;
   div {
     background-color: $light-grey;
     padding: 30px 10px;
@@ -203,6 +204,9 @@ form {
 
 #ads-options {
   padding: 0 10px;
+  form {
+    min-height: auto;
+  }
   img {
     position: absolute;
     margin-top: 14px;
@@ -238,6 +242,7 @@ form {
 }
 
 #list-block-wrapper {
+  min-height: 60vh;
   .list-block {
     background-color: $light-grey;
     padding: 30px 10px;
@@ -313,6 +318,9 @@ footer {
         li {
           display: inline-block;
         }
+        li:last-child a {
+          padding-right: 10px;
+        }
       }
     }
   }
@@ -378,6 +386,9 @@ footer {
   }
   header nav ul {
     right: calc((100% - 960px) / 2);
+    li:last-child a {
+      padding-right: 0;
+    }
   }
   header #line {
     width: 100%;
@@ -413,7 +424,7 @@ footer {
     }
   }
   #list-block-wrapper {
-    width: 960px;
+    width: 980px;
     padding-left: calc((100% - 980px) / 2);
     padding-right: calc((100% - 980px) / 2);
   }
@@ -458,5 +469,8 @@ footer {
   }
   #main-page-header {
     padding-top: 100px;
+  }
+  .error-message {
+    margin: 10px 0;
   }
 }
