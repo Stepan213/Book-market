@@ -245,7 +245,7 @@ form {
   min-height: 60vh;
   .list-block {
     background-color: $light-grey;
-    padding: 30px 10px;
+    padding: 20px 10px;
     margin: 20px 10px;
     border-radius: 5px;
     display: block;
@@ -260,6 +260,12 @@ form {
         width: 100%;
         border-radius: 5px;
       }
+    }
+    strong {
+      margin-top: 10px;
+      margin-bottom: 0;
+      display: block;
+      font-size: 1.2em;
     }
   }
 }
@@ -299,6 +305,7 @@ footer {
   padding: 10px;
   border-radius: 5px;
   margin: 10px;
+  position: absolute;
   a {
     color: black;
   }
@@ -362,6 +369,8 @@ footer {
   }
 
   #ad {
+    display: flex;
+    min-height: 73vh;
     #img-wrapper {
       display: inline-block;
       margin: 10px;

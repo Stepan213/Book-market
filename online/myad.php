@@ -59,18 +59,19 @@
           if($row["IsGroup"]) {
             $price = "";
           } else {
-            $price = "<p>Cena: " . $row["Price"] . " Kč</p>";
+            $price = "<p>Cena: <input type='number' name='price' min='0' value='" . $row["Price"] . "' required> Kč</p>";
           }
           // Generate HTML
           echo "<div id='ad'>
                   <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                   <div id='text'>
-                  <h2>" . $row["BookName"]. "</h2>
+                  <h2><input type='text' name='bookname' value='" . $row["BookName"] . "' required></h2>
                   " . $price . "
-                  <p>" . $row["Note"] . "</p>
+                  <p><textarea name='note' required>" . $row["Note"] . "</textarea></p>
                   <p>Od uživatele: " . $row["UserName"] . "</p>
-                  <p>Kontakt: <a href='mailto:" . $row["Mail"] . "'>" . $row["Mail"] . "</a></p>
-                  <p>Další kontakt: " . $row["OtherContact"] . "</p>
+                  <p>Kontakt: <input type='text' name='Mail' value='" . $row["Mail"] . "' required></p>
+                  <p>Další kontakt: <input type='text' name='OtherContact' value='" . $row["OtherContact"] . "' required></p>
+                  <input type='submit' value='Potvrdit (nefunguje)'>
                   </div>
                 </div>";
         }
