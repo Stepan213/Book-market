@@ -93,38 +93,18 @@
 
         // If subject = multiple
         if($subject == "multiple") {
-
-          // If school year not set
-          if($school_year == "0") {
-            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main ORDER BY IsGroup DESC");
-            $sql->execute();
-            $result = $sql->get_result();
-
-          // If school year is set
-          } else {
-            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE SchoolYear=? ORDER BY IsGroup DESC");
-            $sql->bind_param("i", $school_year);
-            $sql->execute();
-            $result = $sql->get_result();
-          }
+          $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE SchoolYear=? ORDER BY IsGroup DESC");
+          $sql->bind_param("i", $school_year);
+          $sql->execute();
+          $result = $sql->get_result();
 
         // If subject is set
         } else {
 
-          // If school year doesn't matter
-          if($school_year == "0") {
-            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE Subject=? OR IsGroup ORDER BY IsGroup DESC");
-            $sql->bind_param("s", $subject);
-            $sql->execute();
-            $result = $sql->get_result();
-
-          // If school year matters
-          } else {
-              $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE SchoolYear=? AND (Subject=? OR IsGroup) ORDER BY IsGroup DESC");
-              $sql->bind_param("is", $school_year, $subject);
-              $sql->execute();
-              $result = $sql->get_result();
-          }
+          $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE SchoolYear=? AND (Subject=? OR IsGroup) ORDER BY IsGroup DESC");
+          $sql->bind_param("is", $school_year, $subject);
+          $sql->execute();
+          $result = $sql->get_result();
 
           // If there are some results, half filtered (only single book ads are already filtered)
           if($result->num_rows > 0) {
