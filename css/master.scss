@@ -3,6 +3,8 @@ $light-grey: #f3f3f3;
 $grey: #696969;
 $ligt-yellow: #ffe691;
 $dark-yellow: #ffd138;
+$light-red: #d01a2f;
+$dark-red: #9b2734;
 
 
 html, body {
@@ -10,6 +12,7 @@ html, body {
   margin: 0;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  background-color: #fefcfb;
 }
 
 body {
@@ -194,10 +197,46 @@ form {
       color: $blue;
       background-color: white;
     }
+    .inputfile {
+	    width: 0.1px;
+	    height: 0.1px;
+	    opacity: 0;
+	    overflow: hidden;
+	    position: absolute;
+	    z-index: -1;
+    }
+    .inputfile + label {
+      display: inline-block;
+      color: white;
+      background-color: $blue;
+      padding: 8px 20px;
+      border-radius: 5px;
+    }
+    .inputfile:focus + label, .inputfile + label:hover {
+      cursor: pointer;
+    }
+    .inputfile:focus + label {
+	    outline: 1px dotted #000;
+	    outline: -webkit-focus-ring-color auto 5px;
+    }
   }
   div:last-child {
     input[type="text"], input[type="email"], input[type="password"] {
       width: calc(100% - 15px);
+    }
+  }
+}
+
+#delete-form {
+  min-height: auto;
+  div {
+    border: 1px solid $dark-red;
+    p {
+      padding: 0;
+    }
+    input {
+      background-color: $light-red;
+      border: 1px solid $dark-red;
     }
   }
 }
@@ -285,6 +324,22 @@ form {
   }
 }
 
+#myad {
+  #img-wrapper {
+    background-color: $light-grey;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    img {
+      border-radius: 2px;
+      width: 100%;
+    }
+  }
+  form {
+    min-height: auto;
+  }
+}
+
 #about {
   padding: 10px;
   h2 {
@@ -357,6 +412,9 @@ footer {
     padding: 0 10px;
     .list-block {
       width: calc((100% - 120px) / 3);
+      #img-wrapper {
+        max-height: 215px;
+      }
     }
   }
 
@@ -383,6 +441,16 @@ footer {
     #text {
       display: inline-block;
       width: 40%;
+    }
+  }
+
+  #myad {
+    #img-wrapper {
+      width: 700px;
+      margin-left: calc((100% - 700px) / 2);
+      img {
+        max-width: 300px;
+      }
     }
   }
 }
@@ -471,6 +539,11 @@ footer {
     width: 1200px;
     padding-left: calc((100% - 1200px) / 2);
     padding-right: calc((100% - 1200px) / 2);
+    .list-block {
+      #img-wrapper {
+        max-height: 270px;
+      }
+    }
   }
   header {
     padding-top: 25px;
