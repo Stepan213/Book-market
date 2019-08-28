@@ -27,6 +27,7 @@
       <p>Online burza učebnic</p>
       <div id="line"></div>
     </header>
+    <div id="myad">
     <?php
       $servername = "localhost:3306";
       $username = "burza";
@@ -41,7 +42,7 @@
       }
 
       // Prepare statement, avoid injection attack
-      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact, IsGroup FROM main WHERE URL=?");
+      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, OtherContact, IsGroup FROM main WHERE URL=?");
 
       // Bind values
       $sql->bind_param("s", $URL);
@@ -59,27 +60,37 @@
           if($row["IsGroup"]) {
             $price = "";
           } else {
-            $price = "<p>Cena: <input type='number' name='price' min='0' value='" . $row["Price"] . "' required> Kč</p>";
+            $price = "<input type='number' name='price' min='0' value='" . $row["Price"] . "' required> Kč";
           }
           // Generate HTML
-          echo "<div id='ad'>
-                  <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
+          echo "<div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                   <div id='text'>
-                  <h2><input type='text' name='bookname' value='" . $row["BookName"] . "' required></h2>
-                  " . $price . "
-                  <p><textarea name='note' required>" . $row["Note"] . "</textarea></p>
-                  <p>Od uživatele: " . $row["UserName"] . "</p>
-                  <p>Kontakt: <input type='text' name='Mail' value='" . $row["Mail"] . "' required></p>
-                  <p>Další kontakt: <input type='text' name='OtherContact' value='" . $row["OtherContact"] . "' required></p>
-                  <input type='submit' value='Potvrdit (nefunguje)'>
+                    <form action='modify.php' method='post'>
+                      <div>
+                        <input type='text' name='bookname' id='myad-heading' value='" . $row["BookName"] . "' required>
+                        " . $price . "
+                        <textarea name='note' required>" . $row["Note"] . "</textarea>
+                        Další kontakt: <input type='text' name='OtherContact' value='" . $row["OtherContact"] . "' required>
+                        <input type='submit' value='Potvrdit úpravu'>
+                      </div>
+                    </form>
                   </div>
-                </div>";
+                ";
         }
       } else {
         echo "<p class='error-message'>Inzerát se nepodařilo načíst. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
       }
       $sql->close();
     ?>
+    <form action='delete.php' method='post' id='delete-form'>
+      <div>
+        <p>Smazání inzerátu</p>
+        <p>Tlačítkem níže můžeš inzerát smazat. Nijak to neovlivní Tvé ostatní inzeráty.</p>
+        <p>Nejde to vrátit, tak pozor :-)</p>
+        <input type='submit' id='delete-button' value='Smazat inzerát'>
+      </div>
+    </form>
+    </div>
     <footer>
       <p>© Burza Učebnic 2019</p>
     </footer>
