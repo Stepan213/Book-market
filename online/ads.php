@@ -29,14 +29,14 @@
     </header>
     <h2>Všechny inzeráty</h2>
     <div id="ads-options">
-      <form class="" action="ads.php" method="post">
+      <form class="" action="ads.php" method="get">
           <p>Filtr podle předmětu:</p>
           <img src="arrow.svg" alt="">
           <select name="subject">
             <?php
               if(!count($_POST)) {
                 $subject = "multiple";
-                $school_year = "0";
+                $school_year = "1";
               } else {
                 $subject = $_POST['subject'];
                 $school_year = $_POST['schoolyear'];
@@ -46,6 +46,7 @@
             <option <?php if ($subject == "aj" ) echo 'selected'; ?> value="aj">Aj</option>
             <option <?php if ($subject == "cj" ) echo 'selected'; ?> value="cj">Čj</option>
             <option <?php if ($subject == "nj" ) echo 'selected'; ?> value="nj">Nj</option>
+            <option <?php if ($subject == "fj" ) echo 'selected'; ?> value="fj">Fj</option>
             <option <?php if ($subject == "fy" ) echo 'selected'; ?> value="fy">Fy</option>
             <option <?php if ($subject == "ma" ) echo 'selected'; ?> value="ma">Ma</option>
             <option <?php if ($subject == "ch" ) echo 'selected'; ?> value="ch">Ch</option>
@@ -87,9 +88,9 @@
 
 
       // If using filters
-      if(count($_POST)) {
-        $subject = $_POST['subject'];
-        $school_year = $_POST['schoolyear'];
+      if(count($_GET)) {
+        $subject = $_GET['subject'];
+        $school_year = $_GET['schoolyear'];
 
         // If subject = multiple
         if($subject == "multiple") {
@@ -110,7 +111,7 @@
           if($result->num_rows > 0) {
 
             // Get subject spelling table
-            $subjects_sql = $conn->prepare("SELECT Base, BaseD, Longer, LongerD, Short, ShortD FROM subjects WHERE Base=?");
+            $subjects_sql = $conn->prepare("SELECT Base, BaseD, Longer, LongerD, Short, ShortD, Other FROM subjects WHERE Base=?");
             $subjects_sql->bind_param("s", $subject);
 
             // While there are remaining not displayed ads
@@ -118,6 +119,7 @@
 
               // Put Note to lowercase for easier comparing
               $note = mb_strtolower($row["Note"], 'UTF-8');
+              $book_name = mb_strtolower($row["BookName"], 'UTF-8');
 
               // Refill subject spelling table
               $subjects_sql->execute();
@@ -133,7 +135,7 @@
                     continue;
                   }
                   // If ad is a group of books and spelling matches, set boolean $match_found to true
-                  if($row["IsGroup"] && (strpos($note, $spelling) !== false)) {
+                  if($row["IsGroup"] && (strpos($note, $spelling) !== false || strpos($book_name, $spelling) !== false)) {
                     $match_found = true;
                   }
                 }
