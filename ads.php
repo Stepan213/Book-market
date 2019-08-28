@@ -29,7 +29,7 @@
     </header>
     <h2>Všechny inzeráty</h2>
     <div id="ads-options">
-      <form class="" action="ads.php" method="post">
+      <form class="" action="ads.php" method="get">
           <p>Filtr podle předmětu:</p>
           <img src="arrow.svg" alt="">
           <select name="subject">
@@ -46,6 +46,7 @@
             <option <?php if ($subject == "aj" ) echo 'selected'; ?> value="aj">Aj</option>
             <option <?php if ($subject == "cj" ) echo 'selected'; ?> value="cj">Čj</option>
             <option <?php if ($subject == "nj" ) echo 'selected'; ?> value="nj">Nj</option>
+            <option <?php if ($subject == "fj" ) echo 'selected'; ?> value="fj">Fj</option>
             <option <?php if ($subject == "fy" ) echo 'selected'; ?> value="fy">Fy</option>
             <option <?php if ($subject == "ma" ) echo 'selected'; ?> value="ma">Ma</option>
             <option <?php if ($subject == "ch" ) echo 'selected'; ?> value="ch">Ch</option>
@@ -87,9 +88,9 @@
 
 
       // If using filters
-      if(count($_POST)) {
-        $subject = $_POST['subject'];
-        $school_year = $_POST['schoolyear'];
+      if(count($_GET)) {
+        $subject = $_GET['subject'];
+        $school_year = $_GET['schoolyear'];
 
         // If subject = multiple
         if($subject == "multiple") {
