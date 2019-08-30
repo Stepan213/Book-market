@@ -15,7 +15,7 @@ html, body {
   background-color: #fefcfb;
 }
 
-body {
+body, a {
   color: $blue;
   font-family: 'Quicksand', sans-serif;
 }
@@ -123,7 +123,6 @@ header {
 }
 
 form {
-  min-height: 75vh;
   div {
     background-color: $light-grey;
     padding: 30px 10px;
@@ -281,7 +280,6 @@ form {
 }
 
 #list-block-wrapper {
-  min-height: 60vh;
   .list-block {
     background-color: $light-grey;
     padding: 20px 10px;
@@ -453,10 +451,15 @@ footer {
       }
     }
   }
+
+  #fixed-footer {
+    position: fixed;
+    bottom: 0;
+  }
 }
 
 @media(min-width: 1000px) {
-  header, footer, #main-page, #list-block-wrapper, h2, body>p {
+  header, footer, #main-page, #list-block-wrapper, h2, body>p, #about {
     width: 960px;
     padding-left: calc((100% - 960px) / 2);
     padding-right: calc((100% - 960px) / 2);
@@ -527,7 +530,7 @@ footer {
 }
 
 @media(min-width: 1500px) {
-  header, footer, #main-page, #list-block-wrapper, h2, #ads-options, body>p {
+  header, footer, #main-page, #list-block-wrapper, h2, #ads-options, body>p, #about {
     width: 1200px;
     padding-left: calc((100% - 1200px) / 2);
     padding-right: calc((100% - 1200px) / 2);
