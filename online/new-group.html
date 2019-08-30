@@ -48,8 +48,8 @@
       <div class="slide">
         <p>Jak vypadají?</p>
         <p>(jedna fotka stačí)</p>
-        Select image to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload" required>
+        <input type="file" name="fileToUpload" id="fileToUpload" class="inputfile" required/>
+        <label for="fileToUpload"><span>Vyber fotku</span></label>
       </div>
       <div class="slide">
         <p>Jak která a za kolik? A chceš něco dodat?</p>
@@ -60,7 +60,7 @@
         <p>Teď něco o tobě:</p>
         Jméno:<br><input type="text" name="username" value="" required><br>
         E-Mail:<br><input type="email" name="mail" value="" required><br>
-        Další kontakt(y):<br><input type="text" name="othercontact" value=""><br>
+        Další kontakt(y) (FB, Snapchat, Telefon, atd.):<br><input type="text" name="othercontact" value=""><br>
         Heslo (pro pozdější editaci inzerátu):<br><input type="password" name="password" value="" required><br>
         <!--<input type="checkbox" name="" value="">Souhlasím se <a href="">zpracováním osobních údajů</a>.<br>
         <input type="checkbox" name="" value="">Souhlasím se <a href="">smluvními podmínkami</a>.<br>-->
@@ -70,5 +70,6 @@
     <footer>
       <p>© Burza Učebnic 2019</p>
     </footer>
+    <script type="text/javascript" src="js/master.js"></script>
   </body>
 </html>
