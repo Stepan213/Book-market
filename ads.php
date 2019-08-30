@@ -31,15 +31,14 @@
     <div id="ads-options">
       <form class="" action="ads.php" method="get">
           <p>Filtr podle předmětu:</p>
-          <img src="arrow.svg" alt="">
           <select name="subject">
             <?php
-              if(!count($_POST)) {
+              if(!count($_GET)) {
                 $subject = "multiple";
                 $school_year = "1";
               } else {
-                $subject = $_POST['subject'];
-                $school_year = $_POST['schoolyear'];
+                $subject = $_GET['subject'];
+                $school_year = $_GET['schoolyear'];
               }
             ?>
             <option <?php if ($subject == "multiple" ) echo 'selected'; ?> value="multiple">Nezáleží</option>
@@ -57,13 +56,12 @@
             <option <?php if ($subject == "other" ) echo 'selected'; ?> value="other">Jiné</option>
           </select>
           <p>Filtr podle ročníku:</p>
-          <img src="arrow.svg" alt="">
           <select name="schoolyear">
             <option <?php if ($school_year == "1" ) echo 'selected'; ?> value="1">Prvák</option>
             <option <?php if ($school_year == "2" ) echo 'selected'; ?> value="2">Druhák</option>
             <option <?php if ($school_year == "3" ) echo 'selected'; ?> value="3">Třeťák</option>
             <option <?php if ($school_year == "4" ) echo 'selected'; ?> value="4">Čtvrťák</option>
-            <option <?php if ($school_year == "0" ) echo 'selected'; ?> value="0">Víceleté</option>
+            <option <?php if ($school_year == "0" ) echo 'selected'; ?> value="0">Neurčeno/Víceleté</option>
           </select>
         <input type="submit" name="" value="Použít filtry">
       </form>
@@ -94,18 +92,35 @@
 
         // If subject = multiple
         if($subject == "multiple") {
-          $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE SchoolYear=? ORDER BY IsGroup DESC");
-          $sql->bind_param("i", $school_year);
-          $sql->execute();
-          $result = $sql->get_result();
-
+          // If school year not set
+          if($school_year == "0") {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main ORDER BY IsGroup DESC");
+            $sql->execute();
+            $result = $sql->get_result();
+          // If school year is set
+          } else {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE SchoolYear=? ORDER BY IsGroup DESC");
+            $sql->bind_param("i", $school_year);
+            $sql->execute();
+            $result = $sql->get_result();
+          }
         // If subject is set
         } else {
 
-          $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE SchoolYear=? AND (Subject=? OR IsGroup) ORDER BY IsGroup DESC");
-          $sql->bind_param("is", $school_year, $subject);
-          $sql->execute();
-          $result = $sql->get_result();
+          // If school year doesn't matter
+          if($school_year == "0") {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE Subject=? OR IsGroup ORDER BY IsGroup DESC");
+            $sql->bind_param("s", $subject);
+            $sql->execute();
+            $result = $sql->get_result();
+
+          // If school year matters
+          } else {
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE SchoolYear=? AND (Subject=? OR IsGroup) ORDER BY IsGroup DESC");
+            $sql->bind_param("is", $school_year, $subject);
+            $sql->execute();
+            $result = $sql->get_result();
+          }
 
           // If there are some results, half filtered (only single book ads are already filtered)
           if($result->num_rows > 0) {
