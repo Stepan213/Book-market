@@ -35,14 +35,39 @@
       $dbname = "burza";
 
       $URL = $_GET["URL"];
+      $Code = $_GET["Code"];
 
       $conn = new mysqli($servername, $username, $dbpassword, $dbname);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
 
+      if(isset($_GET["action"])) {
+        if($_GET["action"] == "delete") {
+          $sql = $conn->prepare("DELETE FROM main WHERE Code=?");
+          $sql->bind_param("s", $Code);
+          if($sql->execute()) {
+            echo "<p class='error-message'>Inzerát byl úspěšně smazán. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
+          } else {
+            echo "<p class='error-message'>Inzerát se nepodařilo smazat. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
+          }
+        }
+        if($_GET["action"] == "modify") {
+          $book_name = $_POST['bookname'];
+          $note = $_POST['note'];
+          $price = $_POST['price'];
+          $other_contact = $_POST['othercontact'];
+
+          $sql = $conn->prepare("UPDATE main SET BookName=?, Note=?, Price=?, OtherContact=? WHERE URL=?");
+          $sql->bind_param("ssiss", $book_name, $note, $price, $other_contact, $URL);
+          $sql->execute();
+        }
+        $sql->close();
+        exit();
+      }
+
       // Prepare statement, avoid injection attack
-      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, OtherContact, IsGroup FROM main WHERE URL=?");
+      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, OtherContact, IsGroup, Code FROM main WHERE URL=?");
 
       // Bind values
       $sql->bind_param("s", $URL);
@@ -57,39 +82,56 @@
       if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
+          if($row["Code"] == $Code) {
           if($row["IsGroup"]) {
-            $price = "";
+            $price = "' disabled>";
           } else {
-            $price = "<input type='number' name='price' min='0' value='" . $row["Price"] . "' required> Kč";
+            $price = $row["Price"] . "' required>";
           }
           // Generate HTML
           echo "<div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                   <div id='text'>
-                    <form action='modify.php' method='post'>
+                    <form action='myad.php?action=modify&URL=". $URL . "&Code=" . $Code . "' method='post'>
                       <div>
-                        <input type='text' name='bookname' id='myad-heading' value='" . $row["BookName"] . "' required>
-                        " . $price . "
-                        <textarea name='note' required>" . $row["Note"] . "</textarea>
-                        Další kontakt: <input type='text' name='OtherContact' value='" . $row["OtherContact"] . "' required>
+                        <p>Chceš inzerát přejmenovat?</p>
+                        <input type='text' name='bookname' id='myad-heading' value='" . $row["BookName"] . "' required><br>
+                      </div>
+                      <div>
+                        <p>Chceš upravit cenu?</p>
+                        <p>(U inzerátu s více učebnicemi najednou cena editovat nejde.)</p>
+                        <input type='number' name='price' min='0' value='" . $price . " Kč<br>
+                      </div>
+                      <div>
+                        <p>Chceš ještě něco dodat? Nebo upravit?</p>
+                        <textarea name='note'>" . $row["Note"] . "</textarea><br>
+                      </div>
+                      <div>
+                        <p>Chceš přidat nějaký svůj další kontakt?</p>
+                        Další kontakt: <input type='text' name='othercontact' value='" . $row["OtherContact"] . "' required><br>
+                      </div>
+                      <div>
                         <input type='submit' value='Potvrdit úpravu'>
                       </div>
                     </form>
                   </div>
+                  <form action='myad.php?action=delete&URL=". $URL . "&Code=" . $Code . "' method='post' id='delete-form'>
+                    <div>
+                      <p>Smazání inzerátu</p>
+                      <p>Tlačítkem níže můžeš inzerát smazat. Nijak to neovlivní Tvé ostatní inzeráty.</p>
+                      <p>Nejde to vrátit, tak pozor :-)</p>
+                      <input type='submit' id='delete-button' value='Smazat inzerát'>
+                    </div>
+                  </form>
                 ";
+        } else {
+          echo "<p class='error-message'>Inzerát se nepodařilo načíst z bezpečnostních důvodů. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
+        }
         }
       } else {
         echo "<p class='error-message'>Inzerát se nepodařilo načíst. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
       }
       $sql->close();
     ?>
-    <form action='delete.php' method='post' id='delete-form'>
-      <div>
-        <p>Smazání inzerátu</p>
-        <p>Tlačítkem níže můžeš inzerát smazat. Nijak to neovlivní Tvé ostatní inzeráty.</p>
-        <p>Nejde to vrátit, tak pozor :-)</p>
-        <input type='submit' id='delete-button' value='Smazat inzerát'>
-      </div>
-    </form>
     </div>
     <footer>
       <p>© Burza Učebnic 2019</p>

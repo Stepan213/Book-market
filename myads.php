@@ -45,7 +45,7 @@
         }
 
         // Prepare statement, avoid injection attack
-        $sql = $conn->prepare("SELECT Password, URL, BookName, PhotoURL, Price FROM main WHERE Mail=?");
+        $sql = $conn->prepare("SELECT ID, Password, URL, BookName, PhotoURL FROM main WHERE Mail=?");
 
         // Bind values
         $sql->bind_param("s", $user_mail);
@@ -54,26 +54,32 @@
 
         $result = $sql->get_result();
 
-        if (mysqli_num_rows($result)!=0) {
+        $displayed_results = 0;
+
+        if(mysqli_num_rows($result)>0) {
           while($row = $result->fetch_assoc()) {
             if(password_verify($user_password, $row["Password"])) {
-              echo "<a href='myad.php?URL=". $row["URL"] ."' class='list-block'>
+              $code = round(microtime(true));
+              echo "<a href='myad.php?URL=". $row["URL"] . "&Code=" . $code . "' class='list-block'>
                       <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                       <strong>" . $row["BookName"]. "</strong>
-                      <p>" . $row["Price"]. " Kč</p>
                     </a>";
-            }
-            else {
-              echo "<p class='error-message'>Zadané heslo není správné. Chceš to <a href='myads-login.html'>zkusit znovu</a>?<p>";
+              $displayed_results++;
+              $sql = ("UPDATE main SET Code = '" . $code . "' WHERE ID = " . $row["ID"]);
+              $conn->query($sql);
             }
           }
         } else {
           echo "<p class='error-message'>Tenhle E-Mail v databázi nemám :-/ Chceš to <a href='myads-login.html'>zkusit znovu</a>?<p>";
         }
+
+        if(!$displayed_results) {
+          echo "<p class='error-message'>Heslo k tomuto E-Mailu není správné, nebo k němu neexistují žádné inzeráty. Chceš to <a href='myads-login.html'>zkusit znovu</a>?<p>";
+        }
         $conn->close();
       ?>
     </div>
-      <footer>
+      <footer id="fixed-footer">
         <p>© Burza Učebnic 2019</p>
       </footer>
   </body>
