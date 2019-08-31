@@ -23,7 +23,7 @@
           <li><a href="about.html">O projektu</a></li>
         </ul>
       </nav>
-      <a href="index.html"><h1>Burza učebnic</h1></a>
+      <a href="index.html"><h1>Ucebnicovka<span>.cz</span></h1></a>
       <p>Online burza učebnic</p>
       <div id="line"></div>
     </header>
@@ -134,7 +134,7 @@
     ?>
     </div>
     <footer>
-      <p>© Burza Učebnic 2019</p>
+      <p>© Ucebnicovka.cz 2019</p>
     </footer>
   </body>
 </html>
