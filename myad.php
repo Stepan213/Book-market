@@ -18,7 +18,7 @@
         <ul>
           <li><a href="index.html">Úvod</a></li>
           <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new-choice.html">Přidat</a></li>
+          <li><a href="new/new-choice.html">Přidat</a></li>
           <li><a href="ads.php">Prohlížet</a></li>
           <li><a href="about.html">O projektu</a></li>
         </ul>
