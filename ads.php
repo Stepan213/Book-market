@@ -10,22 +10,7 @@
   </head>
   <body>
     <header>
-      <nav>
-        <input id="check01" type="checkbox" name="menu">
-        <label for="check01">
-          <img id="menu-icon" src="menu.svg" alt="menu">
-        </label>
-        <ul>
-          <li><a href="index.html">Úvod</a></li>
-          <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new-choice.html">Přidat</a></li>
-          <li><a href="ads.php">Prohlížet</a></li>
-          <li><a href="about.html">O projektu</a></li>
-        </ul>
-      </nav>
-      <a href="index.html"><h1>Ucebnicovka<span>.cz</span></h1></a>
-      <p>Online burza učebnic</p>
-      <div id="line"></div>
+      <?php include 'php-chunks/header.php' ?>
     </header>
     <h2>Všechny inzeráty</h2>
     <div id="ads-options">
@@ -71,10 +56,7 @@
 
 
 
-      $servername = "localhost:3306";
-      $username = "burza";
-      $dbpassword = "DnaXn600UMfIDtxN";
-      $dbname = "burza";
+      include 'php-chunks/mysql-credentials.php';
 
 
 
