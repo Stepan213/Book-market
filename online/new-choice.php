@@ -10,34 +10,19 @@
   </head>
   <body>
     <header>
-      <nav>
-        <input id="check01" type="checkbox" name="menu">
-        <label for="check01">
-          <img id="menu-icon" src="menu.svg" alt="menu">
-        </label>
-        <ul>
-          <li><a href="index.html">Úvod</a></li>
-          <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new-choice.html">Přidat</a></li>
-          <li><a href="ads.php">Prohlížet</a></li>
-          <li><a href="about.html">O projektu</a></li>
-        </ul>
-      </nav>
-      <a href="index.html"><h1>Burza učebnic</h1></a>
-      <p>Online burza učebnic</p>
-      <div id="line"></div>
+      <?php include 'php-chunks/header.php' ?>
     </header>
     <h2>Přidání nového inzerátu</h2>
     <form class="" action="sendform.php" method="post" enctype="multipart/form-data">
       <div class="slide">
         <p>Kolik toho bude?</p>
         <p>(Učebnice můžeš přidat buď po jednom, nebo jako skupinu, třeba "Učebnice pro 1. ročník")</p>
-        <a href="new-single.html">Jedna učebnice</a>
-        <a href="new-group.html">Víc učebnic najednou</a>
+        <a href="new-single.php">Jedna učebnice</a>
+        <a href="new-group.php">Víc učebnic najednou</a>
       </div>
     </form>
     <footer id="fixed-footer">
-      <p>© Burza Učebnic 2019</p>
+      <p>© Ucebnicovka.cz 2019</p>
     </footer>
   </body>
 </html>

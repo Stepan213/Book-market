@@ -10,29 +10,11 @@
   </head>
   <body>
     <header>
-      <nav>
-        <input id="check01" type="checkbox" name="menu">
-        <label for="check01">
-          <img id="menu-icon" src="menu.svg" alt="menu">
-        </label>
-        <ul>
-          <li><a href="index.html">Úvod</a></li>
-          <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new-choice.html">Přidat</a></li>
-          <li><a href="ads.php">Prohlížet</a></li>
-          <li><a href="about.html">O projektu</a></li>
-        </ul>
-      </nav>
-      <a href="index.html"><h1>Burza učebnic</h1></a>
-      <p>Online burza učebnic</p>
-      <div id="line"></div>
+      <?php include 'php-chunks/header.php' ?>
     </header>
     <div id="myad">
     <?php
-      $servername = "c100um.forpsi.com";
-      $username = "f106697";
-      $dbpassword = "3nhfFP5";
-      $dbname = "f106697";
+      include 'php-chunks/mysql-credentials.php';
 
       $URL = $_GET["URL"];
       $Code = $_GET["Code"];
@@ -56,7 +38,7 @@
           $book_name = $_POST['bookname'];
           $note = $_POST['note'];
           $price = $_POST['price'];
-	  $other_contact = $_POST['othercontact'];
+          $other_contact = $_POST['othercontact'];
 
           $sql = $conn->prepare("UPDATE main SET BookName=?, Note=?, Price=?, OtherContact=? WHERE URL=?");
           $sql->bind_param("ssiss", $book_name, $note, $price, $other_contact, $URL);
@@ -134,7 +116,7 @@
     ?>
     </div>
     <footer>
-      <p>© Burza Učebnic 2019</p>
+      <p>© Ucebnicovka.cz 2019</p>
     </footer>
   </body>
 </html>

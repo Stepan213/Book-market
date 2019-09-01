@@ -10,28 +10,13 @@
   </head>
   <body>
     <header>
-      <nav>
-        <input id="check01" type="checkbox" name="menu">
-        <label for="check01">
-          <img id="menu-icon" src="menu.svg" alt="menu">
-        </label>
-        <ul>
-          <li><a href="index.html">Úvod</a></li>
-          <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new-choice.html">Přidat</a></li>
-          <li><a href="ads.php">Prohlížet</a></li>
-          <li><a href="about.html">O projektu</a></li>
-        </ul>
-      </nav>
-      <a href="index.html"><h1>Burza učebnic</h1></a>
-      <p>Online burza učebnic</p>
-      <div id="line"></div>
+      <?php include 'php-chunks/header.php' ?>
     </header>
     <h2>Přidání nového inzerátu</h2>
     <form class="" action="sendform.php" method="post" enctype="multipart/form-data">
       <div class="slide">
         <p>Jak se ta učebnice jmenuje?</p>
-        <p>(třeba "Základy Programování od Jana Nováka, 2. vydání")</p>
+        <p>(třeba "Základy Programování od Jana Nováka, 2. vydání", název nemusí být přesný)</p>
         Název: <input type="text" name="bookname" value="" required>
       </div>
       <div class="slide">
@@ -79,19 +64,56 @@
         Poznámka:<br><textarea name="note" value=""></textarea>
       </div>
       <div class="slide">
-        <p>Teď něco o tobě:</p>
-        Jméno:<br><input type="text" name="username" value="" required><br>
-        E-Mail:<br><input type="email" name="mail" value="" required><br>
-        Další kontakt(y) (FB, Snapchat, Telefon, atd.):<br><input type="text" name="othercontact" value=""><br>
-        Heslo (pro pozdější editaci inzerátu):<br><input type="password" name="password" value="" required><br>
-        <!--<input type="checkbox" name="" value="">Souhlasím se <a href="">zpracováním osobních údajů</a>.<br>
-        <input type="checkbox" name="" value="">Souhlasím se <a href="">smluvními podmínkami</a>.<br>-->
+        <?php include 'php-chunks/registration.php' ?>
         <input type="submit" name="" value="Odeslat">
       </div>
     </form>
     <footer>
-      <p>© Burza Učebnic 2019</p>
+      <p>© Ucebnicovka.cz 2019</p>
     </footer>
     <script type="text/javascript" src="js/master.js"></script>
+    <script type="text/javascript">
+      var fromForm;
+      var mails;
+      var names;
+      var others;
+      function registerAutofill(mail) {
+        mails = [];
+        names = [];
+        others = [];
+        fromForm = mail;
+        <?php
+          include 'php-chunks/mysql-credentials.php';
+
+          $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+          if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+          }
+
+          $sql = $conn->prepare("SELECT UserName, Mail, OtherContact FROM main");
+          $sql->execute();
+          $result = $sql->get_result();
+
+          if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+              echo "mails.push('" . $row["Mail"] . "');";
+              echo "names.push('" . $row["UserName"] . "');";
+              echo "others.push('" . $row["OtherContact"] . "');";
+            }
+          } else {
+            echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
+          }
+        ?>
+        mails.forEach(compare);
+
+      }
+
+      function compare(fromDB, index) {
+        if(fromDB == fromForm) {
+          document.getElementById("username").value = names[index];
+          document.getElementById("othercontact").value = others[index];
+        }
+      }
+    </script>
   </body>
 </html>

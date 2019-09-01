@@ -67,10 +67,10 @@ $photoURL = $target_img_dir . $newfilename;
 // Hash password
 $password = password_hash($unhashed_password, PASSWORD_DEFAULT, ["cost" => 10]);
 
-      $servername = "c100um.forpsi.com";
-      $username = "f106697";
-      $dbpassword = "3nhfFP5";
-      $dbname = "f106697";
+$servername = "localhost:3306";
+$username = "burza";
+$dbpassword = "DnaXn600UMfIDtxN";
+$dbname = "burza";
 
 // Try connect to a mysql database
 $conn = new mysqli($servername, $username, $dbpassword, $dbname);

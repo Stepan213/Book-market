@@ -10,22 +10,7 @@
   </head>
   <body>
     <header>
-      <nav>
-        <input id="check01" type="checkbox" name="menu">
-        <label for="check01">
-          <img id="menu-icon" src="menu.svg" alt="menu">
-        </label>
-        <ul>
-          <li><a href="index.html">Úvod</a></li>
-          <li><a href="myads-login.html">Moje inzeráty</a></li>
-          <li><a href="new.html">Přidat</a></li>
-          <li><a href="ads.php">Prohlížet</a></li>
-          <li><a href="about.html">O projektu</a></li>
-        </ul>
-      </nav>
-      <a href="index.html"><h1>Burza učebnic</h1></a>
-      <p>Online burza učebnic</p>
-      <div id="line"></div>
+      <?php include 'php-chunks/header.php' ?>
     </header>
     <article id="about">
       <h2>O burze</h2>
@@ -36,7 +21,7 @@
       <p>Informace na této stránce se v dohledné době změní, dokumenty týkající se GDPR atd. budou přidány po zpřístupnění stránky veřejnosti.</p>
     </article>
     <footer id="fixed-footer">
-      <p>© Burza Učebnic 2019</p>
+      <?php include 'php-chunks/footer.php';?>
     </footer>
   </body>
 </html>
