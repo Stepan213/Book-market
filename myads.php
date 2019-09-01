@@ -15,19 +15,24 @@
     <h2>Moje inzeráty</h2>
     <div id="list-block-wrapper">
     <?php
+      //Hide all errors to user
+      error_reporting(0);
+      ini_set('display_errors', 0);
+
+      // User login credentials
       $user_mail = $_POST['usermail'];
       $user_password = $_POST['password'];
 
+      // MySQL credentials
       include 'php-chunks/mysql-credentials.php';
-      
+
       // Try connect to a mysql database
       $conn = new mysqli($servername, $username, $dbpassword, $dbname);
       if($conn->connect_error) {
-        die('Connect Error:' . $conn->connect_error);
+        die("<p class='error-message'>Vypadá to, že přihlašování zrovna teď nefunguje. V případě potřeby úpravy/smazání tvých osobních údajů nás kontaktuj přes kontakt na stránce <a href='about.php'>O projektu</a>.</p>");
       }
       // Prepare statement, avoid injection attack
       $sql = $conn->prepare("SELECT ID, Password, URL, BookName, PhotoURL FROM main WHERE Mail=?");
-      // Bind values
       $sql->bind_param("s", $user_mail);
       $sql->execute();
       $result = $sql->get_result();
@@ -46,10 +51,10 @@
           }
         }
       } else {
-        echo "<p class='error-message'>Tenhle E-Mail v databázi nemám :-/ Chceš to <a href='myads-login.html'>zkusit znovu</a>?<p>";
+        echo "<p class='error-message'>Tenhle E-Mail v databázi nemám :-/ Chceš to <a href='myads-login.php'>zkusit znovu</a>?<p>";
       }
       if(!$displayed_results) {
-        echo "<p class='error-message'>Heslo k tomuto E-Mailu není správné, nebo k němu neexistují žádné inzeráty. Chceš to <a href='myads-login.html'>zkusit znovu</a>?<p>";
+        echo "<p class='error-message'>Heslo k tomuto E-Mailu není správné, nebo k němu neexistují žádné inzeráty. Chceš to <a href='myads-login.php'>zkusit znovu</a>?<p>";
       }
       $conn->close();
     ?>
