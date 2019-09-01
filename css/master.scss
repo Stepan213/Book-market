@@ -361,7 +361,6 @@ footer {
   border: 1px solid $dark-yellow;
   padding: 10px;
   border-radius: 5px;
-  margin: 10px;
   position: absolute;
   a {
     color: black;
@@ -468,6 +467,11 @@ footer {
     padding-left: calc((100% - 960px) / 2);
     padding-right: calc((100% - 960px) / 2);
   }
+  .form-error-message {
+    width: 940px;
+    margin-left: calc((100% - 960px) / 2);
+    margin-right: calc((100% - 960px) / 2);
+  }
   header nav ul {
     right: calc((100% - 960px) / 2);
     li:last-child a {
@@ -531,6 +535,9 @@ footer {
     width: 960px;
     padding: 0 calc((100% - 960px) / 2);
   }
+  .error-message {
+    margin: 10px;
+  }
 }
 
 @media(min-width: 1500px) {
@@ -539,8 +546,14 @@ footer {
     padding-left: calc((100% - 1200px) / 2);
     padding-right: calc((100% - 1200px) / 2);
   }
+  .form-error-message {
+    width: 1180px;
+    margin: 10px 0;
+    margin-left: calc((100% - 1200px) / 2);
+    margin-right: calc((100% - 1200px) / 2);
+  }
   header nav ul {
-        right: calc((100% - 1200px) / 2);
+    right: calc((100% - 1200px) / 2);
   }
   #list-block-wrapper {
     width: 1200px;

@@ -13,7 +13,8 @@
       <?php include 'php-chunks/header.php' ?>
     </header>
     <h2>Přidání nového inzerátu</h2>
-    <form class="" action="sendform.php" method="post" enctype="multipart/form-data">
+    <form class="" action="new-single.php" method="post" enctype="multipart/form-data">
+      <?php include 'sendform.php' ?>
       <div class="slide">
         <p>Jak se ta učebnice jmenuje?</p>
         <p>(třeba "Základy Programování od Jana Nováka, 2. vydání", název nemusí být přesný)</p>
@@ -100,8 +101,6 @@
               echo "names.push('" . $row["UserName"] . "');";
               echo "others.push('" . $row["OtherContact"] . "');";
             }
-          } else {
-            echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
           }
         ?>
         mails.forEach(compare);
@@ -111,7 +110,11 @@
       function compare(fromDB, index) {
         if(fromDB == fromForm) {
           document.getElementById("username").value = names[index];
+          document.getElementById("username").style.border = "1px solid #82dd8c";
+          document.getElementById("username").style.backgroundColor = "#f1fff1";
           document.getElementById("othercontact").value = others[index];
+          document.getElementById("othercontact").style.border = "1px solid #82dd8c";
+          document.getElementById("othercontact").style.backgroundColor = "#f1fff1";
         }
       }
     </script>

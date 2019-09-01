@@ -78,8 +78,6 @@
               echo "names.push('" . $row["UserName"] . "');";
               echo "others.push('" . $row["OtherContact"] . "');";
             }
-          } else {
-            echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
           }
         ?>
         mails.forEach(compare);
@@ -89,7 +87,11 @@
       function compare(fromDB, index) {
         if(fromDB == fromForm) {
           document.getElementById("username").value = names[index];
+          document.getElementById("username").style.border = "1px solid #82dd8c";
+          document.getElementById("username").style.backgroundColor = "#f1fff1";
           document.getElementById("othercontact").value = others[index];
+          document.getElementById("othercontact").style.border = "1px solid #82dd8c";
+          document.getElementById("othercontact").style.backgroundColor = "#f1fff1";
         }
       }
     </script>

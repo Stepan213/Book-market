@@ -14,6 +14,7 @@
     </header>
     <h2>Všechny inzeráty</h2>
     <div id="ads-options">
+      <p>(Filtry nemusejí vždy být úplně přesné.)</p>
       <form class="" action="ads.php" method="get">
           <p>Filtr podle předmětu:</p>
           <select name="subject">
@@ -106,14 +107,12 @@
 
           // If there are some results, half filtered (only single book ads are already filtered)
           if($result->num_rows > 0) {
-
             // Get subject spelling table
             $subjects_sql = $conn->prepare("SELECT Base, BaseD, Longer, LongerD, Short, ShortD, Other FROM subjects WHERE Base=?");
             $subjects_sql->bind_param("s", $subject);
 
             // While there are remaining not displayed ads
             while($row = $result->fetch_assoc()) {
-
               // Put Note to lowercase for easier comparing
               $note = mb_strtolower($row["Note"], 'UTF-8');
               $book_name = mb_strtolower($row["BookName"], 'UTF-8');
@@ -147,6 +146,8 @@
                       <strong>" . $row["BookName"]. "</strong>
                       </a>";
                 $match_found = false;
+              } else {
+                echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
               }
             }
             $conn->close();
