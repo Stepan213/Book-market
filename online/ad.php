@@ -13,49 +13,60 @@
       <?php include 'php-chunks/header.php' ?>
     </header>
     <?php
-      include 'php-chunks/mysql-credentials.php';
+      //Hide all errors to user
+      error_reporting(0);
+      ini_set('display_errors', 0);
 
+      //Get specific ad "URL"
       $URL = $_GET["URL"];
 
+      //MySQL credentials
+      include 'php-chunks/mysql-credentials.php';
+
+      //Connect to MySQL
       $conn = new mysqli($servername, $username, $dbpassword, $dbname);
       if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        die("<p class='error-message'>Inzerát se nepodařilo načíst. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>");
       }
 
       // Prepare statement, avoid injection attack
-      $sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact, IsGroup FROM main WHERE URL=?");
-
-      // Bind values
+      if(!$sql = $conn->prepare("SELECT PhotoURL, BookName, Price, Note, UserName, Mail, OtherContact, IsGroup FROM main WHERE URL=?")) {
+        echo "<p class='error-message'>Inzerát se nepodařilo načíst. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
+        $sql->close();
+        exit();
+      }
       $sql->bind_param("s", $URL);
 
       // Execute, check if successful, redirect
       if(!$sql->execute()) {
-        // TODO: That if not working
+        echo "<p class='error-message'>Inzerát se nepodařilo načíst. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
+        $sql->close();
+        exit();
       }
 
       $result = $sql->get_result();
 
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          if($row["IsGroup"]) {
-            $price = "";
-          } else {
-            $price = "<p>Cena: " . $row["Price"] . " Kč</p>";
-          }
-          // Generate HTML
-          echo "<div id='ad'>
-                  <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
-                  <div id='text'>
-                  <h2>" . $row["BookName"]. "</h2>
-                  " . $price . "
-                  <p>" . $row["Note"] . "</p>
-                  <p>Od uživatele: " . $row["UserName"] . "</p>
-                  <p>Kontakt: <a href='mailto:" . $row["Mail"] . "'>" . $row["Mail"] . "</a></p>
-                  <p>Další kontakt: " . $row["OtherContact"] . "</p>
-                  </div>
-                </div>";
+      if ($result->num_rows) {
+        $row = $result->fetch_assoc();
+        // Hide price tag if ad is group of books
+        if($row["IsGroup"]) {
+          $price = "";
+        } else {
+          $price = "<p>Cena: " . $row["Price"] . " Kč</p>";
         }
+        // Generate HTML
+        echo "<div id='ad'>
+                <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
+                <div id='text'>
+                <h2>" . $row["BookName"]. "</h2>
+                " . $price . "
+                <p>" . $row["Note"] . "</p>
+                <p>Od uživatele: " . $row["UserName"] . "</p>
+                <p>Kontakt: <a href='mailto:" . $row["Mail"] . "'>" . $row["Mail"] . "</a></p>
+                <p>Další kontakt: " . $row["OtherContact"] . "</p>
+                </div>
+              </div>";
+
       } else {
         echo "<p class='error-message'>Inzerát se nepodařilo načíst. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
       }

@@ -13,7 +13,8 @@
       <?php include 'php-chunks/header.php' ?>
     </header>
     <h2>Přidání nového inzerátu</h2>
-    <form class="" action="sendform.php?group=1" method="post" enctype="multipart/form-data">
+    <form class="" action="new-group.php?group=1" method="post" enctype="multipart/form-data">
+      <?php include 'sendform.php' ?>
       <div class="slide">
         <p>Jak se to dá souhrně nazvat?</p>
         <p>(třeba "Učebnice češtiny pro prvák")</p>
@@ -21,7 +22,6 @@
       </div>
       <div class="slide">
         <p>Pro jaký ročník jsou?</p>
-        <img src="arrow.svg" alt="">
         <select name="schoolyear">
           <option value="1">Prvák</option>
           <option value="2">Druhák</option>
@@ -51,47 +51,7 @@
     </footer>
     <script type="text/javascript" src="js/master.js"></script>
     <script type="text/javascript">
-      var fromForm;
-      var mails;
-      var names;
-      var others;
-      function registerAutofill(mail) {
-        mails = [];
-        names = [];
-        others = [];
-        fromForm = mail;
-        <?php
-          include 'php-chunks/mysql-credentials.php';
-
-          $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-          if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-          }
-
-          $sql = $conn->prepare("SELECT UserName, Mail, OtherContact FROM main");
-          $sql->execute();
-          $result = $sql->get_result();
-
-          if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-              echo "mails.push('" . $row["Mail"] . "');";
-              echo "names.push('" . $row["UserName"] . "');";
-              echo "others.push('" . $row["OtherContact"] . "');";
-            }
-          } else {
-            echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
-          }
-        ?>
-        mails.forEach(compare);
-
-      }
-
-      function compare(fromDB, index) {
-        if(fromDB == fromForm) {
-          document.getElementById("username").value = names[index];
-          document.getElementById("othercontact").value = others[index];
-        }
-      }
+      <?php include 'php-chunks/new-ad-javascript.php' ?>
     </script>
   </body>
 </html>

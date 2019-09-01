@@ -1,7 +1,7 @@
   <nav>
     <input id="check01" type="checkbox" name="menu">
     <label for="check01">
-      <img id="menu-icon" src="menu.svg" alt="menu">
+      <img id="menu-icon" src="icons/menu.svg" alt="menu">
     </label>
     <ul>
       <li><a href="index.php">Úvod</a></li>

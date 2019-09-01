@@ -14,10 +14,12 @@
     </header>
     <h2>Všechny inzeráty</h2>
     <div id="ads-options">
+      <p>(Filtry nemusejí vždy být úplně přesné.)</p>
       <form class="" action="ads.php" method="get">
           <p>Filtr podle předmětu:</p>
           <select name="subject">
             <?php
+              // If filters are set, initialize them
               if(!count($_GET)) {
                 $subject = "multiple";
                 $school_year = "1";
@@ -53,100 +55,89 @@
     </div>
     <div id="list-block-wrapper">
     <?php
+      //Hide all errors to user
+      error_reporting(0);
+      ini_set('display_errors', 0);
 
-
-
+      // MySQL credentials
       include 'php-chunks/mysql-credentials.php';
 
-
-
+      // Connect to MySQL
       $conn = new mysqli($servername, $username, $dbpassword, $dbname);
       if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        die("<p class='error-message'>Vypadá to, že inzeráty jsou momentálně nedostupné. Zkus to prosím zachvíli, čas si můžeš zkrátit přečtením stránky <a href='about.php'>O tomto projektu</a>.</p>");
       }
-
-
 
       // If using filters
       if(count($_GET)) {
-        $subject = $_GET['subject'];
-        $school_year = $_GET['schoolyear'];
-
         // If subject = multiple
         if($subject == "multiple") {
           // If school year not set
           if($school_year == "0") {
             $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main ORDER BY IsGroup DESC");
-            $sql->execute();
-            $result = $sql->get_result();
           // If school year is set
           } else {
             $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main WHERE SchoolYear=? ORDER BY IsGroup DESC");
             $sql->bind_param("i", $school_year);
-            $sql->execute();
-            $result = $sql->get_result();
           }
+          $sql->execute();
+          $result = $sql->get_result();
         // If subject is set
         } else {
-
           // If school year doesn't matter
           if($school_year == "0") {
-            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE Subject=? OR IsGroup ORDER BY IsGroup DESC");
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE Subject=? OR IsGroup ORDER BY IsGroup ASC");
             $sql->bind_param("s", $subject);
-            $sql->execute();
-            $result = $sql->get_result();
-
           // If school year matters
           } else {
-            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE SchoolYear=? AND (Subject=? OR IsGroup) ORDER BY IsGroup DESC");
+            $sql = $conn->prepare("SELECT URL, BookName, PhotoURL, Price, IsGroup, Note FROM main WHERE SchoolYear=? AND (Subject=? OR IsGroup) ORDER BY IsGroup ASC");
             $sql->bind_param("is", $school_year, $subject);
-            $sql->execute();
-            $result = $sql->get_result();
           }
+
+          $sql->execute();
+          $result = $sql->get_result();
 
           // If there are some results, half filtered (only single book ads are already filtered)
           if($result->num_rows > 0) {
-
             // Get subject spelling table
             $subjects_sql = $conn->prepare("SELECT Base, BaseD, Longer, LongerD, Short, ShortD, Other FROM subjects WHERE Base=?");
             $subjects_sql->bind_param("s", $subject);
 
             // While there are remaining not displayed ads
             while($row = $result->fetch_assoc()) {
-
-              // Put Note to lowercase for easier comparing
+              // Put Note and BookName to lowercase for easier comparing
               $note = mb_strtolower($row["Note"], 'UTF-8');
               $book_name = mb_strtolower($row["BookName"], 'UTF-8');
 
               // Refill subject spelling table
               $subjects_sql->execute();
               $subjects = $subjects_sql->get_result();
-
-              // IDK, gets one row from result set (there's always only one row)
-              while($subject_spelling = $subjects->fetch_assoc()) {
-                $match_found = false;
-                // Try out each spelling
-                foreach ($subject_spelling as $spelling) {
-                  // Ignore if current spelling is empty
-                  if($spelling == "") {
-                    continue;
-                  }
-                  // If ad is a group of books and spelling matches, set boolean $match_found to true
-                  if($row["IsGroup"] && (strpos($note, $spelling) !== false || strpos($book_name, $spelling) !== false)) {
-                    $match_found = true;
-                  }
+              $subject_spelling = $subjects->fetch_assoc();
+              $match_found = false;
+              // Try out each spelling
+              foreach ($subject_spelling as $spelling) {
+                // Ignore if current spelling is empty
+                if($spelling == "") {
+                  continue;
+                }
+                // If ad is a group of books and spelling matches, set boolean $match_found to true
+                if($row["IsGroup"] && (strpos($note, $spelling) !== false || strpos($book_name, $spelling) !== false)) {
+                  $match_found = true;
+                  break;
                 }
               }
 
               $subjects->free();
 
-              // If ad is group ads and match in spelling is found
+              // If ad isn't group or match in spelling is found
               if(!$row["IsGroup"] || $match_found) {
                 echo "<a href='ad.php?URL=". $row["URL"] ."' class='list-block'>
                       <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                       <strong>" . $row["BookName"]. "</strong>
                       </a>";
                 $match_found = false;
+              } else {
+                echo "<p class='error-message'>Vypzadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
               }
             }
             $conn->close();
@@ -163,8 +154,7 @@
          } else {
            echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
          }
-      }
-      else {
+      } else {
         $sql = "SELECT URL, BookName, PhotoURL, Price, IsGroup FROM main ORDER BY IsGroup DESC";
         $result = $conn->query($sql);
 
@@ -180,12 +170,7 @@
         }
       }
 
-
-
       $conn->close();
-
-
-
     ?>
   </div>
     <footer>
