@@ -1,4 +1,5 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $target_img_dir = "uploads/";
 $target_file = $target_img_dir . basename($_FILES["fileToUpload"]["name"]);
 $upload_ok = 1;
@@ -22,12 +23,12 @@ if(isset($_POST["submit"])) {
 }
 // Check if file already exists
 if (file_exists($target_file) && $upload_ok) {
-    $error_message = "Obrázek se nezdařilo nahrát, interní chyba: Shoda systémových jmen.";
+    $error_message = "Nepodařilo se ho nahrát, interní chyba: Shoda systémových jmen.";
     $upload_ok = 0;
 }
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 5000000 && $upload_ok) {
-    $error_message = "Nahraný obrázek je větší než 5MB.";
+    $error_message = "Je větší než 5MB.";
     $upload_ok = 0;
 }
 // Allow certain file formats
@@ -40,7 +41,7 @@ if($image_file_type != "jpg" && $image_file_type != "png" && $image_file_type !=
 // Try upload file
 if($upload_ok) {
   if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_img_dir . $newfilename)) {
-    $error_message = "Omlouvám se, obrázek se nepodařilo nahrát. Zkuste to prosím znovu." . $_FILES["fileToUpload"]["tmp_name"];
+    $error_message = "Nepodařilo se ho nahrát. Zkus to prosím znovu.";
 
   }
 }
@@ -67,10 +68,7 @@ $photoURL = $target_img_dir . $newfilename;
 // Hash password
 $password = password_hash($unhashed_password, PASSWORD_DEFAULT, ["cost" => 10]);
 
-$servername = "localhost:3306";
-$username = "burza";
-$dbpassword = "DnaXn600UMfIDtxN";
-$dbname = "burza";
+include 'php-chunks/mysql-credentials.php';
 
 // Try connect to a mysql database
 $conn = new mysqli($servername, $username, $dbpassword, $dbname);
@@ -97,11 +95,13 @@ if($sql->execute() && !$error_message) {
   header("Location: ad.php?URL=" . $URL);
   die();
 } else {
-  echo "<p class='error-message'>Při přidávání se něco pokazilo :-/ Chceš to <a href='new.html'>zkusit znovu</a>?<p>";
   if($error_message) {
-    echo "<p class='error-message'>Problémy udělal obrázek: " . $error_message . "<p>";
+    echo "<p class='form-error-message' style='position:static'>Menší problémy s obrázkem: " . $error_message . "<p>";
+  } else {
+    echo "<p class='form-error-message' style='position:static'>Při přidávání se něco pokazilo :-/ Chceš to <a href='new.html'>zkusit znovu</a>?<p>";
   }
 }
 
 $sql->close();
+}
 ?>
