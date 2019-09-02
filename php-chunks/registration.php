@@ -12,5 +12,5 @@ Další kontakt(y) (FB, Snapchat, Telefon, atd.):<br>
 Heslo (pro pozdější editaci inzerátu):<br>
 <input type="password" name="password" value="" required><br>
 
-<!--<input type="checkbox" name="" value="">Souhlasím se <a href="">zpracováním osobních údajů</a>.<br>
-<input type="checkbox" name="" value="">Souhlasím se <a href="">smluvními podmínkami</a>.<br>-->
+<input type="checkbox" name="" value="" required>Odesláním souhlasím se zveřejněním výše uvedených údajů.<br>
+<input type="checkbox" name="" value="" disabled>Odesláním souhlasím se zpracováním osobních údajů a všeobecnými podmínkami.<br>
