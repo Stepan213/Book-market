@@ -21,7 +21,7 @@
         <a href="new-group.php">Víc učebnic najednou</a>
       </div>
     </form>
-    <footer id="fixed-footer">
+    <footer>
       <p>© Ucebnicovka.cz 2019</p>
     </footer>
   </body>

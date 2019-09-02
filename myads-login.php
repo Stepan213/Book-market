@@ -21,7 +21,7 @@
         <input type="submit" name="" value="Přihlásit">
       </div>
     </form>
-    <footer id="fixed-footer">
+    <footer>
       <p>© Ucebnicovka.cz 2019</p>
     </footer>
   </body>

@@ -59,7 +59,7 @@
       $conn->close();
     ?>
     </div>
-      <footer id="fixed-footer">
+      <footer>
         <p>© Ucebnicovka.cz 2019</p>
       </footer>
   </body>

@@ -20,7 +20,7 @@
       <p><strong>Kontakt</strong>: <a href="mailto:stepan@cimler.net">stepan@cimler.net</a></p>
       <p>Informace na této stránce se v dohledné době změní, dokumenty týkající se GDPR atd. budou přidány po zpřístupnění stránky veřejnosti.</p>
     </article>
-    <footer id="fixed-footer">
+    <footer>
       <?php include 'php-chunks/footer.php';?>
     </footer>
   </body>

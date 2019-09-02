@@ -137,7 +137,7 @@
                       </a>";
                 $match_found = false;
               } else {
-                echo "<p class='error-message'>Vypzadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
+                echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
               }
             }
             $conn->close();
