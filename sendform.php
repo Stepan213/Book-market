@@ -17,14 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if($check !== false) {
       $upload_ok = 1;
     } else {
-      $error_message = "Zvolený soubor pravý není obrázek.";
+      $error_message = "Zvolený soubor není pravý obrázek.";
       $upload_ok = 0;
     }
-  }
-  // Check if file already exists
-  if (file_exists($target_file) && $upload_ok) {
-    $upload_ok = 0;
-  }
   // Check file size
   if ($_FILES["fileToUpload"]["size"] > 5000000 && $upload_ok) {
     $error_message = "Je větší než 5MB.";
