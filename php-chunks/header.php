@@ -5,9 +5,9 @@
     </label>
     <ul>
       <li><a href="index.php">Úvod</a></li>
-      <li><a href="myads-login.php">Moje inzeráty</a></li>
       <li><a href="new-choice.php">Přidat</a></li>
       <li><a href="ads.php">Prohlížet</a></li>
+      <li><a href="myads-login.php">Moje inzeráty</a></li>
       <li><a href="about.php">O projektu</a></li>
     </ul>
   </nav>
