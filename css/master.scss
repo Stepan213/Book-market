@@ -20,6 +20,10 @@ body, a {
   font-family: 'Quicksand', sans-serif;
 }
 
+body {
+  padding-bottom: 50px;
+}
+
 h2, body>p {
   padding: 0 10px;
 }
@@ -96,23 +100,27 @@ header {
   }
 }
 
+#main-page-wrapper {
+  padding-bottom: 0;
+}
 #main-page {
     background-color: $blue;
     color: white;
     padding: 10px;
     height: calc(100vh - 145px);
+    padding-bottom: 200px;
     h2 {
       padding: 0;
     }
     #main-page-buttons-heading {
       text-align: center;
       font-weight: bold;
-      padding-top: 40px;
+      padding-top: 20px;
     }
     #main-page-buttons {
       display: flex;
       justify-content: space-between;
-      padding-top: 20px;
+      padding: 20px 0;
       a {
         border: 1px solid white;
         padding: 10px 20px;
@@ -169,7 +177,7 @@ form {
       background-color: $blue;
       -webkit-appearance: none;
     }
-    a {
+    > a {
       color: white;
       text-decoration: none;
       border-radius: 5px;
@@ -226,6 +234,46 @@ form {
   div:last-child {
     input[type="text"], input[type="email"], input[type="password"] {
       width: calc(100% - 15px);
+    }
+    label {
+      position: relative;
+      padding-left: 3.2rem;
+      display: inline-block;
+      margin: 20px 0;
+      min-height: 2.5em;
+      input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 2.5em;
+        width: 2.5em;
+        border: none;
+        background-color: white;
+        border-radius: 5px;
+      }
+      span:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      input:checked ~ span:after {
+        display: block;
+      }
+      span:after {
+        left: 0.9em;
+        top: 0.5em;
+        width: 0.5em;
+        height: 1em;
+        border: solid $blue;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+      }
     }
   }
 }
@@ -353,6 +401,7 @@ footer {
   background-color: $blue;
   color: white;
   padding: 10px 5px;
+  width: 100%;
   p {
     margin: 0;
   }
@@ -364,7 +413,7 @@ footer {
   border: 1px solid $dark-yellow;
   padding: 10px;
   border-radius: 5px;
-  position: absolute;
+  margin: 10px;
   a {
     color: black;
   }
@@ -458,6 +507,10 @@ footer {
     }
   }
 
+  .error-message {
+    margin: 20px 0;
+  }
+
   footer {
     position: fixed;
     bottom: 0;
@@ -486,10 +539,11 @@ footer {
   }
   #main-page {
     #main-page-buttons-heading {
-      padding-top: 120px;
+      padding-top: 80px;
     }
     #main-page-buttons {
       justify-content: center;
+      padding-bottom: 80px;
       a {
         width: 170px;
         margin: 0 20px;
