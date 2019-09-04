@@ -16,12 +16,12 @@
       <h2>Informace poskytované správcem osobních údajů (GDPR)</h2>
       <p>V souladu s obecně závaznými právními předpisy na ochranu osobních údajů, zejm. Nařízením Evropského parlamentu a Rady (EU) 2016/679 ze dne 27. dubna 2016 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ ES (Obecné nařízení o ochraně osobních údajů) si Vás dovolujeme informovat o zpracování Vašich osobních údajů.</p>
       <strong>Správce Vašich osobních údajů:</strong>
-      <p>SW NOSTROMO, s.r.o., IČO 28718097</p>
+      ...
       <strong>Pověřenec pro ochranu Vašich osobních údajů:</strong>
-      <p>SW NOSTROMO, s.r.o., nemá povinnost jmenovat pověřence pro ochranu osobních údajů.</p>
+      <p>...</p>
       <strong>Kontaktní údaje správce:</strong>
-      <p>SW NOSTROMO, s.r.o.<br>
-      E-mail: office@cimler.net</p>
+      <p>...<br>
+      ...</p>
       <strong>Účely a právní základ zpracování Vašich osobních údajů:</strong>
       <p>Vaše osobní údaje jsou zpravidla zpracovávány na základě smlouvy o zprostředkování inzerce na internetu nebo na základě souhlasu se zpracováním osobních údajů.</p>
       <strong>Předávání osobních údajů do třetích zemí:</strong>
