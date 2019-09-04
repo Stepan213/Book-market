@@ -39,4 +39,4 @@ Programování - Štěpán Cimler<br>
 Návrhy, testy, propagace - Jaroslav Pazourek, Lucie Procházková, Bára Motyčková, František Záhorec, Bert Bílek, Klára Hávová
 
 <h2>Licence</h2>
-Projekt je licencován pod licencí MIT License - pro detaily si přečtěte LICENSE.md
+Projekt je licencován pod licencí MIT License - pro detaily si přečtěte dokument LICENSE v hlavní složce projektu.
