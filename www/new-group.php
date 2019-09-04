@@ -17,7 +17,7 @@
       <?php include 'sendform.php' ?>
       <div class="slide">
         <p>Jak se to dá souhrně nazvat?</p>
-        <p>(třeba "Učebnice češtiny pro prvák")</p>
+        <p>(třeba "Učebnice pro prvák, skoro kompletní")</p>
         Název: <input type="text" name="bookname" value="" required>
       </div>
       <div class="slide">
