@@ -16,8 +16,8 @@ Webová aplikace, která umožňuje uživatelům přidávat a prohlížet inzer�
 
 <h3>Personalizace dokumentů</h3>
 1. V souboru about.php uveďte kontaktní e-mail.<br>
-2. Je třeba přidat obsah ohledně zásad ochrany osobních údajů do souboru gdpr.php<br>
-3. Ideálně by měl vzniknout ještě dokument týkající se všeobecných smluvních podmínek. (Např. vyhrazení si práva na úpravu/výmaz dat uživatelů bez udání důvodu)
+2. Je třeba přidat obsah ohledně zásad ochrany osobních údajů např. do souboru gdpr.php<br>
+3. Měl by vzniknout ještě dokument týkající se všeobecných smluvních podmínek. (Např. vyhrazení si práva na úpravu/výmaz dat uživatelů bez udání důvodu)
 
 <h3>Přesun souborů na webserver</h3>
 1. V souboru /php-chunks/mysql-credentials.php upravte přístupové údaje do MySQL databáze.<br>
