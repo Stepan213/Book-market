@@ -7,12 +7,14 @@ ini_set('display_errors', 0);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $target_img_dir = "uploads/";
   $target_file = $target_img_dir . basename($_FILES["fileToUpload"]["name"]);
-  $upload_ok = 1;$image_file_type = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-  $temp = explode(".", $_FILES["fileToUpload"]["name"]);$URL = round(microtime(true));
+  $upload_ok = 1;
+  $image_file_type = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  $temp = explode(".", $_FILES["fileToUpload"]["name"]);
+  $URL = random_int(100000, 999999);
   $newfilename = $URL . '.' . end($temp);
   $error_message = "Prostě se ho nepovedlo nahrát. Prosím, zkus to znovu.";
 
-  // Check if image file is a actual image or fake imageif(isset($_POST["submit"])) {
+  // Check if image file is a actual image or fake image
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if($check !== false) {
       $upload_ok = 1;

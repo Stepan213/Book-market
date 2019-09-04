@@ -22,7 +22,7 @@ if(!$result = $conn->query($sql)) {
 $row = $result->fetch_assoc();
 
 if(!$row["LongerD"] == "základy společenských věd") {
-  echo "<p class='error-message'>Test selhal - řetězce se neshodují</p>." . $row["LongerD"] . ".";
+  echo "<p class='error-message'>Test selhal - řetězce se neshodují</p>.";
 }
 
 echo "Konec testu. Test proběhl úspěšně, pokud se nezobrazila žádná jiná zpráva.";
