@@ -40,7 +40,7 @@
       if(mysqli_num_rows($result)>0) {
         while($row = $result->fetch_assoc()) {
           if(password_verify($user_password, $row["Password"])) {
-            $code = round(microtime(true));
+            $code = random_int(100000, 999999);
             echo "<a href='myad.php?URL=". $row["URL"] . "&Code=" . $code . "' class='list-block'>
                     <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                     <strong>" . $row["BookName"]. "</strong>
