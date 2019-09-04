@@ -1,6 +1,6 @@
 <?php
-$servername = "localhost:3306";
-$username = "burza";
-$dbpassword = "DnaXn600UMfIDtxN";
-$dbname = "burza";
+$servername = ""; //mysql server address
+$username = ""; //mysql username
+$dbpassword = ""; //mysql password
+$dbname = ""; //database name
 ?>
