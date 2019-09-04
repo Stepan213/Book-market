@@ -26,9 +26,6 @@ Webová aplikace, která umožňuje uživatelům přidávat a prohlížet inzer�
 <h2>Testování</h2>
 Spuštěním skriptu [vasedomena]/mysql-test.php ověříte funkčnost spojení s MySQL databází.<br>
 
-<h2>Deployment</h2>
-Add additional notes about how to deploy this on a live system
-
 <h2>Použité technologie</h2>
 <ul>
 	<li>MySQL</li>
