@@ -371,6 +371,7 @@ form {
   }
   p, h2 {
     padding: 0 10px;
+    width: auto !important;
   }
 }
 
@@ -598,7 +599,7 @@ footer {
 }
 
 @media(min-width: 1500px) {
-  header, footer, #main-page, #list-block-wrapper, h2, #ads-options, body>p, #about {
+  header, footer, #main-page, #list-block-wrapper, h2, #ads-options, body>p, #about, #ad {
     width: 1200px;
     padding-left: calc((100% - 1200px) / 2);
     padding-right: calc((100% - 1200px) / 2);
