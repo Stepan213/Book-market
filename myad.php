@@ -30,8 +30,8 @@
 
       if(isset($_GET["action"])) {
         if($_GET["action"] == "delete") {
-          $sql = $conn->prepare("DELETE FROM main WHERE Code=?");
-          $sql->bind_param("s", $Code);
+          $sql = $conn->prepare("DELETE FROM main WHERE Code=? AND URL=?");
+          $sql->bind_param("ss", $Code, $URL);
           if($sql->execute()) {
             echo "<p class='error-message'>Inzerát byl úspěšně smazán. Chceš se vrátit na <a href='ads.php'>stránku s inzeráty</a>?</p>";
           } else {
