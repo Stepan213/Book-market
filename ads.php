@@ -103,6 +103,11 @@
             $subjects_sql = $conn->prepare("SELECT Base, BaseD, Longer, LongerD, Short, ShortD, Other FROM subjects WHERE Base=?");
             $subjects_sql->bind_param("s", $subject);
 
+            $ad_found = false;
+            $error_message_count = 0;
+
+            $valid_results = array();
+
             // While there are remaining not displayed ads
             while($row = $result->fetch_assoc()) {
               // Put Note and BookName to lowercase for easier comparing
@@ -131,15 +136,26 @@
 
               // If ad isn't group or match in spelling is found
               if(!$row["IsGroup"] || $match_found) {
+                // Put current row to $valid_results to be displayed later
+                $valid_results[] = $row;
+                $match_found = false;
+                $ad_found = true;
+              }
+            }
+
+            // If there are any valid results
+            if(!empty($valid_results)) {
+              // Display them
+              foreach ($valid_results as $row) {
                 echo "<a href='ad.php?URL=". $row["URL"] ."' class='list-block'>
                       <div id='img-wrapper'><img src=" . $row["PhotoURL"]. " alt='Ilustrace učebnice'/></div>
                       <strong>" . $row["BookName"]. "</strong>
                       </a>";
-                $match_found = false;
-              } else {
-                echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
               }
+            } else {
+              echo "<p class='error-message'>Vypadá to, že na burze zrovna žádné takové inzeráty nejsou. Chceš to napravit a <a href='new.html'>přidat inzerát</a>?</p>";
             }
+            
             $conn->close();
             exit();
           }
