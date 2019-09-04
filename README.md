@@ -14,6 +14,11 @@ Webová aplikace, která umožňuje uživatelům přidávat a prohlížet inzer�
 1. Oprávnění MySQL účtu projektu nastavte minimálně na SELECT, INSERT, UPDATE, DELETE<br>
 2. Do databáze nahrajte oba soubory ze složky /mysql
 
+<h3>Personalizace dokumentů</h3>
+1. V souboru about.php uveďte kontaktní e-mail.<br>
+2. Je třeba přidat obsah ohledně zásad ochrany osobních údajů do souboru gdpr.php<br>
+3. Ideálně by měl vzniknout ještě dokument týkající se všeobecných smluvních podmínek. (Např. vyhrazení si práva na úpravu/výmaz dat uživatelů bez udání důvodu)
+
 <h3>Přesun souborů na webserver</h3>
 1. V souboru /php-chunks/mysql-credentials.php upravte přístupové údaje do MySQL databáze.<br>
 2. Obsah složky /www zkopírujte do adresáře webserveru. (většinou www/)
